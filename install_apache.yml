@@ -1,20 +1,22 @@
 ---
 
-
 - hosts: all
   become: true
   tasks:
 
-   - name: update repository index 
-     ansible.builtin.shell:
-        cmd: "dnf makecache" 
+  - name: update repository index
+    ansible.builtin.shell:
+      cmd: "dnf makecache"
+    when: ansible_distribution == "Red Hat Enterprise Linux"
 
-   - name: install apache2 package
-     ansible.builtin.dnf:
-        name: httpd
-        state: latest
+  - name: install apache2 package
+    ansible.builtin.dnf:
+      name: httpd
+      state: latest
+    when: ansible_distribution == "Red Hat Enterprise Linux"
 
-   - name: add php support for apache
-     ansible.builtin.dnf:
-        name: php 
-        state: latest
+  - name: add php support for apache
+    ansible.builtin.dnf:
+      name: php
+      state: latest
+    when: ansible_distribution == "Red Hat Enterprise Linux"
